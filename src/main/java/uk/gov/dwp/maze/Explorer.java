@@ -2,6 +2,7 @@ package uk.gov.dwp.maze;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.gov.dwp.maze.data.Coord;
 import uk.gov.dwp.maze.enums.Cell;
 import uk.gov.dwp.maze.enums.Facing;
 
@@ -20,34 +21,27 @@ public class Explorer {
     public Explorer(final Facing facing, List<String> lines) {
         this.maze = new Maze(lines);
         this.facing = facing;
-        Optional<Coord> startPosition = maze.getCells().entrySet().stream().filter(x -> x.getValue() == Cell.START).map(Map.Entry::getKey).findAny();
+        Optional<Coord> startPosition = maze.getCells().entrySet().stream().
+                filter(x -> x.getValue() == Cell.START).
+                map(Map.Entry::getKey).
+                findAny();
+
         startPosition.ifPresent(coord -> position = coord);
+
+        trail.add(position);
 
         LOG.debug("Explorer spawned at location: {}", position);
     }
 
-    @Override
-    public String toString() {
-        return "Explorer{" +
-                "position=" + position +
-                ", facing=" + facing +
-                '}';
-    }
-
-
     public void moveExplorerForward() {
-        Coord newPosition = calculateDestinationCoord();
+        Coord newPosition = calculateInFrontCoord();
         if (maze.isValidPoint(newPosition) && maze.getPoint(newPosition) != Cell.WALL) {
-            LOG.debug("Explorer moved");
-            trail.add(position);
+            LOG.debug("Explorer moved to {}", newPosition);
+            trail.add(newPosition);
             position = newPosition;
         } else {
-            LOG.debug("Explorer tried to move, but it was not possible");
+            LOG.warn("Explorer tried to move, but it was not possible");
         }
-    }
-
-    private Coord calculateDestinationCoord() {
-        return new Coord(position.getX() + facing.getxOffset(), position.getY() + facing.getyOffset());
     }
 
 
@@ -59,26 +53,43 @@ public class Explorer {
         facing = facing.getRight();
     }
 
-    public Coord getPosition() {
-        return position;
-    }
-
-    public Facing getFacing() {
-        return facing;
-    }
-
     public Cell getCellInFront() {
-        return maze.getPoint(calculateDestinationCoord());
+        return maze.getPoint(calculateInFrontCoord());
     }
 
     public List<Coord> getPossibleMoves() {
         return position.getNeighbours().stream().
                 filter(maze::isValidPoint).
-                filter(p -> maze.getPoint(p) != Cell.WALL).
+                filter(point -> maze.getPoint(point) != Cell.WALL).
                 collect(Collectors.toList());
+    }
+
+    public String whereHaveYouBeen() {
+        return trail.stream().map(i -> String.format("%d,%d", i.getX(), i.getY())).collect(Collectors.joining("\n"));
     }
 
     public List<Coord> getTrail() {
         return Collections.unmodifiableList(trail);
     }
+
+    @Override
+    public String toString() {
+        return "Explorer{" +
+                "position=" + position +
+                ", facing=" + facing +
+                '}';
+    }
+
+    Coord getPosition() {
+        return position;
+    }
+
+    Facing getFacing() {
+        return facing;
+    }
+
+    private Coord calculateInFrontCoord() {
+        return new Coord(position.getX() + facing.getxOffset(), position.getY() + facing.getyOffset());
+    }
+
 }

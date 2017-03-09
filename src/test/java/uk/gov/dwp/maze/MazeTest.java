@@ -2,6 +2,7 @@ package uk.gov.dwp.maze;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import uk.gov.dwp.maze.data.Coord;
 import uk.gov.dwp.maze.enums.Cell;
 
 import java.util.Collections;
@@ -19,12 +20,13 @@ class MazeTest {
     void mazeParsesEveryFieldType() {
         // given
         String validMazeLine = "XSFX ";
+
         // when
         underTest = new Maze(Collections.singletonList(validMazeLine));
+
         // then
         assertThat(underTest.getCells().keySet().size()).isEqualTo(5);
 
-        System.out.println(underTest.getCells());
         assertThat(underTest.getCells().get(new Coord(1, 1))).isEqualTo(Cell.WALL);
         assertThat(underTest.getCells().get(new Coord(2, 1))).isEqualTo(Cell.START);
         assertThat(underTest.getCells().get(new Coord(3, 1))).isEqualTo(Cell.FINISH);
@@ -38,9 +40,11 @@ class MazeTest {
     void mazeParserThrowsAnExceptionWhenUnknownFieldIsFound() {
         // given
         String invalidMazeLine = "XSCFX ";
+
         // when
         Throwable throwable = assertThrows(IllegalArgumentException.class,
                 () -> underTest = new Maze(Collections.singletonList(invalidMazeLine)));
+
         // then
         assertThat(throwable.getMessage()).isEqualTo("Unrecognized field: 'C'");
 
@@ -118,6 +122,7 @@ class MazeTest {
         // given
         Coord invalidCoordinate = new Coord(2, 11);
         underTest = new Maze(Collections.singletonList("XSFX "));
+
         // when
         Throwable throwable = assertThrows(IllegalStateException.class,
                 () -> underTest.getPoint(invalidCoordinate));

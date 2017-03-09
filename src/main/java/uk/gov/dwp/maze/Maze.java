@@ -1,6 +1,7 @@
 package uk.gov.dwp.maze;
 
 
+import uk.gov.dwp.maze.data.Coord;
 import uk.gov.dwp.maze.enums.Cell;
 
 import java.util.Collections;
@@ -11,44 +12,13 @@ import java.util.stream.Collectors;
 
 public class Maze {
 
-
     private Map<Coord, Cell> cells = new HashMap<>();
-
 
     public Maze(List<String> lines) {
 
         buildMaze(lines);
         checkIfMazeIsValid();
 
-    }
-
-    // visible for testing
-    Map<Coord, Cell> getCells() {
-        return Collections.unmodifiableMap(cells);
-    }
-
-    private void checkIfMazeIsValid() {
-        int startCellCount = getCells(Cell.START).size();
-        int finishCellCount = getCells(Cell.FINISH).size();
-
-        if (startCellCount != 1) {
-            throw new IllegalStateException("Not valid maze, only 1 startpoint is allowed, now there is/are: " + startCellCount);
-        }
-        if (finishCellCount != 1) {
-            throw new IllegalStateException("Not valid maze, only 1 finishpoint is allowed, now there is/are: " + finishCellCount);
-        }
-    }
-
-    private void buildMaze(List<String> lines) {
-
-        int i = 1;
-        for (String line : lines) {
-            for (int j = 0; j < line.length(); j++) {
-                char c = line.charAt(j);
-                cells.put(new Coord(j + 1, i), Cell.getEnum(c));
-            }
-            i++;
-        }
     }
 
     public boolean isValidPoint(Coord c) {
@@ -79,5 +49,34 @@ public class Maze {
     public long getWallCount() {
         return countCell(Cell.WALL);
     }
+
+    Map<Coord, Cell> getCells() {
+        return Collections.unmodifiableMap(cells);
+    }
+
+    private void checkIfMazeIsValid() {
+        int startCellCount = getCells(Cell.START).size();
+        int finishCellCount = getCells(Cell.FINISH).size();
+
+        if (startCellCount != 1) {
+            throw new IllegalStateException("Not valid maze, only 1 startpoint is allowed, now there is/are: " + startCellCount);
+        }
+        if (finishCellCount != 1) {
+            throw new IllegalStateException("Not valid maze, only 1 finishpoint is allowed, now there is/are: " + finishCellCount);
+        }
+    }
+
+    private void buildMaze(List<String> lines) {
+
+        int i = 1;
+        for (String line : lines) {
+            for (int j = 0; j < line.length(); j++) {
+                char c = line.charAt(j);
+                cells.put(new Coord(j + 1, i), Cell.getEnum(c));
+            }
+            i++;
+        }
+    }
+
 
 }

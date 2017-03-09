@@ -3,6 +3,7 @@ package uk.gov.dwp.maze;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
+import uk.gov.dwp.maze.data.Coord;
 import uk.gov.dwp.maze.enums.Cell;
 import uk.gov.dwp.maze.enums.Facing;
 
@@ -20,7 +21,6 @@ import static uk.gov.dwp.maze.enums.Facing.WEST;
 
 
 class ExplorerTest {
-    private static final Coord START_COORD = new Coord(1, 1);
 
     private Explorer underTest;
 
@@ -88,7 +88,7 @@ class ExplorerTest {
         Cell cell = underTest.getCellInFront();
 
         // then
-        assertThat(cell).isEqualTo(cell.SPACE);
+        assertThat(cell).isEqualTo(Cell.SPACE);
 
     }
 
@@ -116,13 +116,41 @@ class ExplorerTest {
         underTest = new Explorer(Facing.NORTH, Arrays.asList("     ", " XSFX ", "      "));
 
         // when
-        List<Coord> possibleMoves = underTest.getPossibleMoves();
-
         underTest.moveExplorerForward();
         underTest.turnLeft();
         underTest.moveExplorerForward();
         underTest.moveExplorerForward();
+
         // then
+        assertThat(underTest.getTrail()).containsExactly(
+                new Coord(3, 2),
+                new Coord(3, 1),
+                new Coord(2, 1),
+                new Coord(1, 1)
+        );
+
+    }
+
+    @Test
+    void getTrailShouldContainAllMovesThatActuallyHappened() {
+
+        // given
+        underTest = new Explorer(Facing.NORTH, Arrays.asList("     ", " XSFX ", "      "));
+
+        // when
+        underTest.moveExplorerForward();
+        underTest.moveExplorerForward();
+        underTest.turnLeft();
+        underTest.moveExplorerForward();
+        underTest.moveExplorerForward();
+
+        // then
+        assertThat(underTest.getTrail()).containsExactlyInAnyOrder(
+                new Coord(3, 2),
+                new Coord(3, 1),
+                new Coord(2, 1),
+                new Coord(1, 1)
+        );
 
     }
 

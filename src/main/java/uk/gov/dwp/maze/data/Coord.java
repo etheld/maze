@@ -1,4 +1,4 @@
-package uk.gov.dwp.maze;
+package uk.gov.dwp.maze.data;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,8 +9,7 @@ public class Coord {
     private final Integer x;
     private final Integer y;
 
-
-    Coord(final Integer x, final Integer y) {
+    public Coord(final Integer x, final Integer y) {
         this.x = x;
         this.y = y;
     }
@@ -23,6 +22,7 @@ public class Coord {
                 new Coord(x, y - 1)
         );
     }
+
     public Integer getX() {
         return x;
     }
@@ -38,7 +38,6 @@ public class Coord {
                 ", y=" + y +
                 '}';
     }
-
 
     @Override
     public boolean equals(final Object o) {
