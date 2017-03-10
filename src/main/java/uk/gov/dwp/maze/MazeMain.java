@@ -31,6 +31,9 @@ public class MazeMain {
         catch (IllegalStateException e) {
             LOG.error("Could not parse the maze file", e);
         }
+        catch (Exception e) {
+          e.printStacktrace();
+        }
 
     }
 
