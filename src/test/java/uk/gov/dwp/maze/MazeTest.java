@@ -18,6 +18,7 @@ class MazeTest {
     @Test
     @DisplayName("maze can parse all the field types into positions")
     void mazeParsesEveryFieldType() {
+
         // given
         String validMazeLine = "XSFX ";
 
@@ -36,8 +37,9 @@ class MazeTest {
     }
 
     @Test
-    @DisplayName("maze parser throws illegalargumentexception when it encounters unknown field")
+    @DisplayName("maze parser throws IllegalArgumentException when it encounters unknown field")
     void mazeParserThrowsAnExceptionWhenUnknownFieldIsFound() {
+
         // given
         String invalidMazeLine = "XSCFX ";
 
@@ -79,6 +81,7 @@ class MazeTest {
     }
 
     @Test
+    @DisplayName("getEmptySpaces should return how many empty spaces are there on the map")
     void getEmptySpacesCountCorrectNumberOfEmptySpaces() {
         // given
         underTest = new Maze(Collections.singletonList(VALID_MAZE_LINE));
@@ -91,6 +94,7 @@ class MazeTest {
     }
 
     @Test
+    @DisplayName("getwallCount should return how many walls are there on the map")
     void getWallCountReturnsCorrectNumberOfWalls() {
         // given
         underTest = new Maze(Collections.singletonList(VALID_MAZE_LINE));
@@ -103,7 +107,7 @@ class MazeTest {
     }
 
     @Test
-    @DisplayName("getPoint returns correct cell type")
+    @DisplayName("getPoint returns correct cell type of any given coordinate")
     void getPointReturnsCorrectCell() {
         // given
         underTest = new Maze(Collections.singletonList(VALID_MAZE_LINE));

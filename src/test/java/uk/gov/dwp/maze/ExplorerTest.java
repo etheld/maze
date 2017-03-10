@@ -1,5 +1,6 @@
 package uk.gov.dwp.maze;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
@@ -65,7 +66,8 @@ class ExplorerTest {
     }
 
     @Test
-    void moveExplorer() {
+    @DisplayName("when there is no wall in front of the explorer moveExplorerForward should be able to move explorer to the position in front of the explorer")
+    void moveExplorerForwardEnablesExplorerToMoveForward() {
 
         // given
         underTest = new Explorer(Facing.NORTH, Arrays.asList("     ", " XSFX "));
@@ -79,7 +81,8 @@ class ExplorerTest {
     }
 
     @Test
-    void getCellInFrontShouldTellWhatCellIsInFrontOfExplorer() {
+    @DisplayName("getCellInfFront return space when there is an empty space in front of it")
+    void getCellInFrontShouldShouldReturnSpaceWhenThereIsAnEmptySpaceInFrontOfIt() {
 
         // given
         underTest = new Explorer(Facing.NORTH, Arrays.asList("     ", " XSFX "));
@@ -93,6 +96,22 @@ class ExplorerTest {
     }
 
     @Test
+    @DisplayName("getCellInfFront return wall  when there is a wall in front of it")
+    void getCellInFrontShouldReturnWallWhenThereIsAWallInFrontOfIt() {
+
+        // given
+        underTest = new Explorer(Facing.NORTH, Arrays.asList("  X  ", " XSFX "));
+
+        // when
+        Cell cell = underTest.getCellInFront();
+
+        // then
+        assertThat(cell).isEqualTo(Cell.WALL);
+
+    }
+
+    @Test
+    @DisplayName("getPossibleMoves should return all coordinates that the explorer can move to")
     void getPossibleMovesReturnsAllCoordinatesThatAreValidToMoveTo() {
 
         // given
@@ -102,15 +121,18 @@ class ExplorerTest {
         List<Coord> possibleMoves = underTest.getPossibleMoves();
 
         // then
-        assertThat(possibleMoves).containsExactlyInAnyOrder(new Coord(4, 2),
+        assertThat(possibleMoves).containsExactlyInAnyOrder(
+                new Coord(4, 2),
                 new Coord(3, 1),
-                new Coord(3, 3));
+                new Coord(3, 3)
+        );
 
     }
 
 
     @Test
-    void getTrailShouldContainAllMoves() {
+    @DisplayName("moving the explorer should generate a trail log, so it knows where it has been")
+    void movingExplorerShouldGenerateTrail() {
 
         // given
         underTest = new Explorer(Facing.NORTH, Arrays.asList("     ", " XSFX ", "      "));
@@ -132,7 +154,8 @@ class ExplorerTest {
     }
 
     @Test
-    void getTrailShouldContainAllMovesThatActuallyHappened() {
+    @DisplayName("moving the explorer should generate a trail log only when the move actually happened")
+    void movingExplorerShouldGenerateTrailButOnlyOnValidMoves() {
 
         // given
         underTest = new Explorer(Facing.NORTH, Arrays.asList("     ", " XSFX ", "      "));
@@ -154,6 +177,7 @@ class ExplorerTest {
 
     }
 
+    // helper class
     private class CellTuple {
         CellTuple(final Facing before, final Facing after) {
             this.before = before;

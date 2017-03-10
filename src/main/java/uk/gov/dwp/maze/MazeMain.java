@@ -1,5 +1,7 @@
 package uk.gov.dwp.maze;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.gov.dwp.maze.enums.Facing;
 
 import java.io.IOException;
@@ -10,6 +12,8 @@ import java.util.List;
 
 
 public class MazeMain {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Explorer.class);
 
     public static void main(String[] args) {
         try {
@@ -22,7 +26,10 @@ public class MazeMain {
             System.out.println(explorer.whereHaveYouBeen());
 
         } catch (IOException | URISyntaxException e) {
-            throw new IllegalArgumentException("Could not load the maze file", e);
+            LOG.error("Could not load the maze file", e);
+        }
+        catch (IllegalStateException e) {
+            LOG.error("Could not parse the maze file", e);
         }
 
     }

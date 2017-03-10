@@ -68,16 +68,16 @@ public class Explorer {
         return trail.stream().map(i -> String.format("%d,%d", i.getX(), i.getY())).collect(Collectors.joining("\n"));
     }
 
-    public List<Coord> getTrail() {
-        return Collections.unmodifiableList(trail);
-    }
-
     @Override
     public String toString() {
         return "Explorer{" +
                 "position=" + position +
                 ", facing=" + facing +
                 '}';
+    }
+
+    List<Coord> getTrail() {
+        return Collections.unmodifiableList(trail);
     }
 
     Coord getPosition() {
