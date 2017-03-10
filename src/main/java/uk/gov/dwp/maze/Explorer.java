@@ -18,8 +18,8 @@ public class Explorer {
     private Maze maze;
     private List<Coord> trail = new ArrayList<>();
 
-    public Explorer(final Facing facing, List<String> lines) {
-        this.maze = new Maze(lines);
+    public Explorer(final Facing facing, Maze maze) {
+        this.maze = maze;
         this.facing = facing;
         Optional<Coord> startPosition = maze.getCells().entrySet().stream().
                 filter(x -> x.getValue() == Cell.START).

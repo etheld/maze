@@ -19,7 +19,8 @@ public class MazeMain {
         try {
             List<String> lines = Files.readAllLines(Paths.get(ClassLoader.getSystemResource("Maze1.txt").toURI()));
 
-            Explorer explorer = new Explorer(Facing.NORTH, lines);
+            Maze maze = new Maze(lines);
+            Explorer explorer = new Explorer(Facing.NORTH, maze);
             explorer.turnRight();
             explorer.moveExplorerForward();
             explorer.moveExplorerForward();
