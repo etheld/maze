@@ -35,6 +35,8 @@ public class MazeMain {
         catch (Exception e) {
           e.printStacktrace();
         }
+	catch (NullPointerException e) {
+	}
 
     }
 
