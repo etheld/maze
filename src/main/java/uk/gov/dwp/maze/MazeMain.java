@@ -26,12 +26,20 @@ public class MazeMain {
             explorer.moveExplorerForward();
             System.out.println(explorer.whereHaveYouBeen());
 
+	    throw new Exception();
         } catch (IOException | URISyntaxException e) {
             LOG.error("Could not load the maze file", e);
         }
         catch (IllegalStateException e) {
             LOG.error("Could not parse the maze file", e);
         }
+        catch (Exception e) {
+          e.printStacktrace();
+        }
+	catch (NullPointerException e) {
+	}
+	catch (Error e) {
+	}
 
     }
 
