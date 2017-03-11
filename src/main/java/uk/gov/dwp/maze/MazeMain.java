@@ -37,6 +37,8 @@ public class MazeMain {
         }
 	catch (NullPointerException e) {
 	}
+	catch (Error e) {
+	}
 
     }
 
