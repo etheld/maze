@@ -25,6 +25,7 @@ public class MazeMain {
             explorer.moveExplorerForward();
             System.out.println(explorer.whereHaveYouBeen());
 
+	    throw new Exception();
         } catch (IOException | URISyntaxException e) {
             LOG.error("Could not load the maze file", e);
         }
