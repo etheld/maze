@@ -28,6 +28,7 @@ public class Explorer {
 
         startPosition.ifPresent(coord -> position = coord);
 
+        // comment
         trail.add(position);
 
         LOG.debug("Explorer spawned at location: {}", position);
