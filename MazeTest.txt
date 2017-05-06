@@ -46,4 +46,6 @@ Acceptance Criteria
 * An explorer on a maze must be able to report a record of where they have been in an understandable fashion
 
 
-Note: We are looking for your Explorer solution to implement the above Acceptance criteria. We do not expect you to submit a fully autonomous maze solving Explorer implementation. 
+Note: We are looking for your Explorer solution to implement the above Acceptance criteria. We do not expect you to submit a fully autonomous maze solving Explorer implementation.
+
+test commit
