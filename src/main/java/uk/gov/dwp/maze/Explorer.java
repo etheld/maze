@@ -9,14 +9,14 @@ import uk.gov.dwp.maze.enums.Facing;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Explorer {
+class Explorer {
 
     private static final Logger LOG = LoggerFactory.getLogger(Explorer.class);
 
     private Coord position;
     private Facing facing;
-    private Maze maze;
-    private List<Coord> trail = new ArrayList<>();
+    private final Maze maze;
+    private final List<Coord> trail = new ArrayList<>();
 
     public Explorer(final Facing facing, Maze maze) {
         this.maze = maze;
