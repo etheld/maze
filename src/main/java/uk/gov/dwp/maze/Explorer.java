@@ -9,7 +9,6 @@ import uk.gov.dwp.maze.enums.Facing;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("ALL")
 class Explorer {
 
     private static final Logger LOG = LoggerFactory.getLogger(Explorer.class);
