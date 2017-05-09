@@ -7,8 +7,8 @@ public enum Facing {
     SOUTH(0, 1),
     WEST(-1, 0);
 
-    private int xOffset;
-    private int yOffset;
+    private final int xOffset;
+    private final int yOffset;
 
     Facing(int xOffset, int yOffset) {
 

@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 
-public class MazeMain {
+class MazeMain {
 
     private static final Logger LOG = LoggerFactory.getLogger(Explorer.class);
 

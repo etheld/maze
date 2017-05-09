@@ -10,7 +10,7 @@ public enum Cell {
     FINISH('F'),
     SPACE(' ');
 
-    Character fieldValue;
+    final Character fieldValue;
 
     Cell(Character c) {
         this.fieldValue = c;

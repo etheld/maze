@@ -8,12 +8,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CoordTest {
 
-    private Coord underTest;
-
-    @Test
+	@Test
     void getNeighbours() {
         // given
-        underTest = new Coord(3, 3);
+		final Coord underTest = new Coord(3, 3);
 
         // when
         List<Coord> neighbours = underTest.getNeighbours();

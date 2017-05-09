@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Maze {
+class Maze {
 
-    private Map<Coord, Cell> cells = new HashMap<>();
+    private final Map<Coord, Cell> cells = new HashMap<>();
 
     public Maze(List<String> lines) {
 
@@ -34,11 +34,11 @@ public class Maze {
     }
 
 
-    public List<Cell> getCells(Cell cellType) {
+    private List<Cell> getCells(Cell cellType) {
         return cells.values().stream().filter(x -> x == cellType).collect(Collectors.toList());
     }
 
-    public long countCell(Cell cellType) {
+    private long countCell(Cell cellType) {
         return cells.values().stream().filter(x -> x == cellType).count();
     }
 

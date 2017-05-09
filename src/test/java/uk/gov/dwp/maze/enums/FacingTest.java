@@ -16,13 +16,13 @@ import static uk.gov.dwp.maze.enums.Facing.WEST;
 
 class FacingTest {
 
-    private Collection<CellTuple> turnLeftData = Arrays.asList(
+    private final Collection<CellTuple> turnLeftData = Arrays.asList(
             new CellTuple(NORTH, WEST),
             new CellTuple(WEST, SOUTH),
             new CellTuple(SOUTH, EAST),
             new CellTuple(EAST, NORTH));
 
-    private Collection<CellTuple> turnRightData = Arrays.asList(
+    private final Collection<CellTuple> turnRightData = Arrays.asList(
             new CellTuple(NORTH, EAST),
             new CellTuple(WEST, NORTH),
             new CellTuple(SOUTH, WEST),
@@ -71,8 +71,8 @@ class FacingTest {
             this.after = after;
         }
 
-        Facing before;
-        Facing after;
+        final Facing before;
+        final Facing after;
     }
 
 }
